@@ -8,13 +8,22 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const { showToast } = useToast();
 
+  
   const mutation = useMutation({
     mutationFn: login,
-    // TODO (Task 3): on success, fire a success toast (e.g. "Welcome back!")
-    onSuccess: () => {},
-    // TODO (Task 3): on error, read error.response?.data?.message and fire an error toast
-    onError: () => {},
+
+    onSuccess: () => {
+      showToast("Welcome back!", "success");
+    },
+
+    onError: (error) => {
+      const message =
+        error.response?.data?.message || "Something went wrong";
+
+      showToast(message, "error");
+    },
   });
+
 
   function handleSubmit(e) {
     e.preventDefault();
